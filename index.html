@@ -53,6 +53,24 @@
             </div>
             
             <div id="filterContent">
+                <!-- Row Numbering Customization -->
+                <div class="mb-3 p-3 bg-light rounded">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="flex-grow-1">
+                            <label class="form-label fw-bold mb-1">
+                                <i class="fas fa-hashtag"></i> Row Numbering Start Position:
+                            </label>
+                            <div class="input-group" style="max-width: 250px;">
+                                <input type="number" id="rowStartPosition" class="form-control" value="1" min="0" step="1" title="Starting row number for numbering">
+                                <button class="btn btn-info" onclick="applyRowStartPosition()" title="Apply the row start position">
+                                    <i class="fas fa-check"></i> Apply
+                                </button>
+                            </div>
+                            <small class="form-text text-muted d-block mt-1">Enter the number to start row numbering from (e.g., 0, 1, 10, 100)</small>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="row">
                     <!-- Search Section -->
                     <div class="col-md-6 mb-3">

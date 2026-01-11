@@ -3,6 +3,7 @@
    ============================================ */
 
 let rowCounter = 1;
+let rowStartPosition = 1;  // User-customizable starting row number
 let allRows = [];
 let currentMatchIndex = -1;
 let currentMatches = [];
@@ -27,7 +28,7 @@ function generateTable() {
     const lines = text.split('\n').filter(line => line.trim() !== '');
     const tbody = document.getElementById('tableBody');
     tbody.innerHTML = '';
-    rowCounter = 1;
+    rowCounter = rowStartPosition;
     allRows = [];
     
     // Reset IDNo context
@@ -355,14 +356,14 @@ function renumberRows() {
     const rows = tbody.querySelectorAll('tr');
     
     rows.forEach((row, index) => {
-        const rowNo = index + 1;
+        const rowNo = rowStartPosition + index;
         row.dataset.rowId = rowNo;
         row.querySelector('.row-no').textContent = rowNo;
     });
     
     // Update allRows
     allRows = allRows.map((row, index) => {
-        row.id = index + 1;
+        row.id = rowStartPosition + index;
         row.rowNo = index + 1;
         return row;
     });
@@ -413,4 +414,37 @@ function getAllRows() {
  */
 function getVisibleRows() {
     return getAllRows().filter(row => !row.element.classList.contains('filtered-out'));
+}
+
+/**
+ * Apply custom row start position
+ */
+function applyRowStartPosition() {
+    const inputElement = document.getElementById('rowStartPosition');
+    const newStartPosition = parseInt(inputElement.value);
+    
+    // Validate input
+    if (isNaN(newStartPosition)) {
+        alert('Please enter a valid number.');
+        inputElement.value = rowStartPosition;
+        return;
+    }
+    
+    if (newStartPosition < 0) {
+        alert('Row start position cannot be negative.');
+        inputElement.value = rowStartPosition;
+        return;
+    }
+    
+    rowStartPosition = newStartPosition;
+    
+    // Re-number existing rows if table is not empty
+    const tbody = document.getElementById('tableBody');
+    if (tbody.querySelectorAll('tr').length > 0) {
+        renumberRows();
+        updateStatusBar();
+        showToast(`Row numbering updated: starting from ${rowStartPosition}`);
+    } else {
+        showToast(`Row numbering will start from ${rowStartPosition} for new tables`);
+    }
 }

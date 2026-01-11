@@ -195,7 +195,7 @@ function importCSV(file) {
         const lines = csv.split('\n');
         const tbody = document.getElementById('tableBody');
         tbody.innerHTML = '';
-        rowCounter = 1;
+        rowCounter = rowStartPosition;
         allRows = [];
         
         // Skip header
@@ -227,7 +227,7 @@ function importJSON(file) {
             const data = JSON.parse(e.target.result);
             const tbody = document.getElementById('tableBody');
             tbody.innerHTML = '';
-            rowCounter = 1;
+            rowCounter = rowStartPosition;
             allRows = [];
             
             if (Array.isArray(data)) {
