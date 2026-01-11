@@ -78,9 +78,10 @@ function copyRowAbove(rowId) {
     // Actions
     const cellActions = newRow.insertCell(4);
     cellActions.className = 'cell-actions';
-    cellActions.innerHTML = '';
+    cellActions.innerHTML = createActionsMenu('temp');
     
     renumberRows();
+    updateActionMenus();
     updateStatusBar();
 }
 
@@ -134,9 +135,10 @@ function copyRowBelow(rowId) {
     // Actions
     const cellActions = newRow.insertCell(4);
     cellActions.className = 'cell-actions';
-    cellActions.innerHTML = '';
+    cellActions.innerHTML = createActionsMenu('temp');
     
     renumberRows();
+    updateActionMenus();
     updateStatusBar();
 }
 
@@ -157,6 +159,7 @@ function insertRowAbove(rowId) {
     
     populateEmptyRow(newRow);
     renumberRows();
+    updateActionMenus();
     updateStatusBar();
 }
 
@@ -177,6 +180,7 @@ function insertRowBelow(rowId) {
     
     populateEmptyRow(newRow);
     renumberRows();
+    updateActionMenus();
     updateStatusBar();
 }
 
@@ -214,7 +218,7 @@ function populateEmptyRow(row) {
     // Actions
     const cellActions = row.insertCell(4);
     cellActions.className = 'cell-actions';
-    cellActions.innerHTML = '';
+    cellActions.innerHTML = createActionsMenu('temp');
 }
 
 /**
@@ -242,7 +246,25 @@ function addNewRow() {
     
     populateEmptyRow(newRow);
     renumberRows();
+    updateActionMenus();
     updateStatusBar();
+}
+
+/**
+ * Update action menus for all rows with correct rowId
+ */
+function updateActionMenus() {
+    const tbody = document.getElementById('tableBody');
+    const rows = tbody.querySelectorAll('tr[data-row-id]');
+    
+    rows.forEach(row => {
+        const rowId = row.dataset.rowId;
+        const cellActions = row.querySelector('.cell-actions');
+        
+        if (cellActions) {
+            cellActions.innerHTML = createActionsMenu(rowId);
+        }
+    });
 }
 
 /**
@@ -258,7 +280,7 @@ function clearOutput() {
     
     if (confirm('Are you sure you want to clear the entire table? This cannot be undone.')) {
         tbody.innerHTML = '';
-        rowCounter = 1;
+        rowCounter = rowStartPosition;
         allRows = [];
         updateStatusBar();
     }

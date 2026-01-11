@@ -13,8 +13,20 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background-color: #f5f5f5;
-    color: #333;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    color: #24292f;
+    min-height: 100vh;
+    padding: 20px 0;
+}
+
+h1 {
+    color: #24292f;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+h1 small {
+    color: #666;
 }
 
 /* Textarea styling */
@@ -29,28 +41,31 @@ textarea {
    ============================================ */
 
 [contenteditable="true"] {
-    border: 1px solid var(--border-color);
+    border: 1px solid #e0e0e0;
     padding: 6px 8px;
     min-height: 25px;
     transition: all 0.2s ease;
     word-wrap: break-word;
     white-space: pre-wrap;
+    border-radius: 3px;
 }
 
 [contenteditable="true"]:hover {
-    background-color: var(--light-gray);
+    background-color: #f5f5f5;
     border-color: #999;
+    box-shadow: inset 0 0 3px rgba(0, 123, 255, 0.1);
 }
 
 [contenteditable="true"]:focus {
     outline: none;
     background-color: #fff;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25), inset 0 0 3px rgba(0, 123, 255, 0.1);
 }
 
 [contenteditable="true"].empty-cell {
-    color: #999;
+    color: #aaa;
+    font-style: italic;
 }
 
 /* ============================================
@@ -58,12 +73,12 @@ textarea {
    ============================================ */
 
 .filter-panel {
-    background-color: var(--light-gray);
-    border: 1px solid var(--border-color);
+    background: linear-gradient(135deg, #f5f7fa 0%, #f8f9fa 100%);
+    border: 1px solid #d0d7de;
     border-radius: 8px;
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .filter-panel.collapsed #filterContent {
@@ -75,19 +90,21 @@ textarea {
 }
 
 .filter-panel h5 {
-    color: #333;
-    font-weight: 600;
+    color: #24292f;
+    font-weight: 700;
+    font-size: 1.05rem;
 }
 
 .filter-panel .form-label {
     font-weight: 600;
     font-size: 0.95rem;
-    color: #555;
+    color: #333;
 }
 
 .filter-panel .dropdown-menu {
     max-height: 400px;
     overflow-y: auto;
+    border-radius: 4px;
 }
 
 /* ============================================
@@ -95,25 +112,29 @@ textarea {
    ============================================ */
 
 .filter-badge {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     padding: 6px 12px;
     margin: 5px 5px 5px 0;
-    background-color: var(--primary-color);
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
     color: white;
     border-radius: 20px;
     font-size: 0.9em;
     font-weight: 500;
-    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+    gap: 6px;
 }
 
 .filter-badge .badge-close {
-    margin-left: 8px;
+    margin-left: 6px;
     cursor: pointer;
     font-weight: bold;
+    opacity: 0.8;
+    transition: opacity 0.2s;
 }
 
 .filter-badge .badge-close:hover {
-    opacity: 0.8;
+    opacity: 1;
 }
 
 /* ============================================
@@ -121,11 +142,12 @@ textarea {
    ============================================ */
 
 .search-highlight {
-    background-color: #ffeb3b;
-    color: #000;
+    background-color: #fff3cd;
+    color: #333;
     font-weight: 500;
     padding: 2px 4px;
     border-radius: 2px;
+    border-bottom: 2px solid #ffc107;
 }
 
 .search-match-active {
@@ -134,6 +156,7 @@ textarea {
     padding: 2px 4px;
     border-radius: 2px;
     font-weight: bold;
+    box-shadow: 0 0 4px rgba(255, 152, 0, 0.5);
 }
 
 /* ============================================
@@ -147,27 +170,37 @@ textarea {
 
 #outputTable thead {
     background-color: #f8f9fa;
-    border-bottom: 2px solid var(--border-color);
+    border-bottom: 3px solid var(--primary-color);
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
 #outputTable th {
-    font-weight: 600;
+    font-weight: 700;
     color: #333;
-    padding: 10px;
+    padding: 12px 10px;
     text-align: left;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    background-color: #f8f9fa;
 }
 
 #outputTable td {
-    padding: 8px;
+    padding: 10px 8px;
     vertical-align: middle;
+    border-color: #e0e0e0;
 }
 
 #outputTable tbody tr {
-    transition: background-color 0.2s;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid #e0e0e0;
 }
 
 #outputTable tbody tr:hover {
-    background-color: #f8f9fa;
+    background-color: #f0f7ff;
+    box-shadow: inset 0 0 0 1px #e0e0e0;
 }
 
 #outputTable tbody tr.filtered-out {
@@ -222,11 +255,12 @@ textarea {
 
 .actions-dropdown a {
     display: block;
-    padding: 8px 12px;
+    padding: 10px 14px;
     color: #333;
     text-decoration: none;
     border-bottom: 1px solid var(--border-color);
-    transition: background-color 0.2s;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
 }
 
 .actions-dropdown a:last-child {
@@ -234,8 +268,15 @@ textarea {
 }
 
 .actions-dropdown a:hover {
-    background-color: var(--light-gray);
+    background-color: #e3f2fd;
     color: var(--primary-color);
+    padding-left: 18px;
+}
+
+.actions-dropdown a i {
+    margin-right: 8px;
+    width: 16px;
+    text-align: center;
 }
 
 .actions-dropdown a.danger {
@@ -243,7 +284,8 @@ textarea {
 }
 
 .actions-dropdown a.danger:hover {
-    background-color: #ffe6e6;
+    background-color: #ffebee;
+    color: var(--danger-color);
 }
 
 /* ============================================
@@ -266,16 +308,24 @@ textarea {
    ============================================ */
 
 #statusBar {
-    margin-bottom: 0;
+    margin-bottom: 15px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
     font-size: 0.95rem;
+    background-color: #e3f2fd !important;
+    border: 1px solid #90caf9 !important;
+    border-radius: 4px;
+}
+
+#statusBar span {
+    font-weight: 500;
 }
 
 #filterStatus {
-    color: #666;
+    color: #1976d2;
+    font-weight: 600;
 }
 
 /* ============================================
@@ -293,14 +343,47 @@ textarea {
     min-width: 120px;
 }
 
+.btn {
+    font-weight: 500;
+    border-radius: 4px;
+    padding: 8px 16px;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn i {
+    font-size: 0.95em;
+}
+
 /* ============================================
-   Cards and Panels
+   Toolbar Section
    ============================================ */
 
-.card {
+.toolbar-section {
+    padding: 12px;
+    background-color: #f8f9fa;
     border: 1px solid var(--border-color);
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+.card {
+    border: 1px solid #d0d7de;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    margin-bottom: 15px;
+    transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
 }
 
 .card-body {
@@ -308,9 +391,10 @@ textarea {
 }
 
 .card-title {
-    color: #333;
-    font-weight: 600;
+    color: #24292f;
+    font-weight: 700;
     margin-bottom: 15px;
+    font-size: 1.25rem;
 }
 
 /* ============================================

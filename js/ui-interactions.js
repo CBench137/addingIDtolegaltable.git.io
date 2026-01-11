@@ -201,7 +201,7 @@ function restoreTableState() {
         if (state && state.rows) {
             const tbody = document.getElementById('tableBody');
             tbody.innerHTML = '';
-            rowCounter = 1;
+            rowCounter = rowStartPosition;
             allRows = [];
             
             state.rows.forEach(row => {
